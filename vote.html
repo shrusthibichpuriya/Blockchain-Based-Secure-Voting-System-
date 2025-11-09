@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Vote - Blockchain Voting System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">🗳️ Cast Your Vote</h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <strong>Welcome, {{ voter_name }}!</strong><br>
+                    Please select your preferred candidate below.
+                </div>
+
+                <form method="POST" action="/vote">
+                    <div class="mb-4">
+                        <h5 class="mb-3">Select a Candidate:</h5>
+                        {% for candidate in candidates %}
+                        <div class="form-check mb-3 p-3 border rounded">
+                            <input class="form-check-input" type="radio" name="candidate_id" 
+                                   id="candidate{{ candidate.id }}" value="{{ candidate.id }}" required>
+                            <label class="form-check-label" for="candidate{{ candidate.id }}">
+                                <strong>{{ candidate.name }}</strong>
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success btn-lg w-100">Submit Vote</button>
+                </form>
+
+                <div class="alert alert-warning mt-4">
+                    <strong>⚠️ Important:</strong> You can only vote once. Please review your selection carefully before submitting.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Blockchain Voting System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">📝 Voter Registration</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/register">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" name="name" 
+                               value="{{ name if name else '' }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="aadhaar" class="form-label">Aadhaar Number</label>
+                        <input type="text" class="form-control" id="aadhaar" name="aadhaar" 
+                               value="{{ aadhaar if aadhaar else '' }}" 
+                               pattern="\d{12}" 
+                               maxlength="12"
+                               placeholder="Enter 12-digit Aadhaar number" required>
+                        <div class="form-text">Must be exactly 12 digits (numeric only)</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+                
+                <div class="mt-3 text-center">
+                    <p class="mb-0">Already registered? <a href="/login">Login to vote</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

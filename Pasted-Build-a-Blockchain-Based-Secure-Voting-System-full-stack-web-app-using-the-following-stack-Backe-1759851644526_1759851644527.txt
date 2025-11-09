@@ -1,0 +1,178 @@
+Build a Blockchain-Based Secure Voting System (full-stack web app) using the following stack:
+
+Backend: Python (Flask)
+
+Smart Contract: Solidity (Voting.sol)
+
+Frontend: HTML, CSS, JavaScript (Flask templates)
+
+Blockchain Connection: web3.py (connect to local Ganache)
+
+🎯 Core Requirements
+🔐 Admin Control Panel
+
+The Admin Dashboard must have 3 toggle buttons to control system phases:
+
+Registration Phase (ON/OFF)
+
+Voting Phase (ON/OFF)
+
+Result Phase (ON/OFF)
+
+Only the admin can switch between these states.
+
+Each phase’s current status must be displayed at the top of every page (e.g., “Registration Phase: ACTIVE” or “OFF”).
+
+🧾 Registration Phase
+
+Active only when the admin turns it ON.
+
+Voters register using:
+
+Full Name
+
+Aadhaar Number
+
+Aadhaar Validation Rules:
+
+Must be numeric only (no letters or symbols).
+
+Must be exactly 12 digits.
+
+If invalid → show red error message (Invalid Aadhaar number. Must be 12 digits.)
+
+Prevent registration if invalid.
+
+Store registered voters in voters.json (locally) and optionally on blockchain.
+
+🗳️ Voting Phase
+
+Available only when Voting Phase is ON.
+
+Registered users log in using Name and Aadhaar Number.
+
+Once logged in:
+
+Display candidate list (3–4 demo names, e.g., "Candidate A", "Candidate B", "Candidate C").
+
+Allow voter to vote for exactly one candidate.
+
+Use Solidity Smart Contract (Voting.sol) to:
+
+Store votes securely.
+
+Prevent double voting (mapping of Aadhaar → hasVoted).
+
+Count votes per candidate.
+
+After voting, show a success message: "Your vote has been recorded successfully!"
+
+🏆 Result Phase
+
+Available only when Result Phase is ON.
+
+Display:
+
+Each candidate’s vote count.
+
+Highlight the winner.
+
+Results fetched from the blockchain (via web3.py).
+
+🧩 System Logic
+
+Use Flask routes and templates:
+
+/                 → index.html (homepage)
+/admin            → admin.html (admin dashboard)
+/register         → register.html (registration form)
+/login            → login.html (voter login)
+/vote             → vote.html (voting interface)
+/result           → result.html (display results)
+
+
+Each route should check which phase is active.
+If a user tries to access a disabled phase → show message:
+⚠️ “This phase is currently turned off by the Admin.”
+
+🪙 Solidity Smart Contract (Voting.sol)
+
+Example structure:
+
+pragma solidity ^0.8.0;
+
+contract Voting {
+    struct Candidate {
+        string name;
+        uint voteCount;
+    }
+
+    mapping(string => bool) public hasVoted;
+    Candidate[] public candidates;
+
+    constructor(string[] memory candidateNames) {
+        for (uint i = 0; i < candidateNames.length; i++) {
+            candidates.push(Candidate(candidateNames[i], 0));
+        }
+    }
+
+    function vote(string memory aadhaar, uint candidateIndex) public {
+        require(!hasVoted[aadhaar], "Already voted");
+        require(candidateIndex < candidates.length, "Invalid candidate");
+        candidates[candidateIndex].voteCount++;
+        hasVoted[aadhaar] = true;
+    }
+
+    function getCandidates() public view returns (Candidate[] memory) {
+        return candidates;
+    }
+}
+
+🧱 Directory Structure
+blockchain_voting_system/
+├── app.py
+├── Voting.sol
+├── voters.json
+├── votes.json
+├── templates/
+│   ├── index.html
+│   ├── admin.html
+│   ├── register.html
+│   ├── login.html
+│   ├── vote.html
+│   └── result.html
+├── static/
+│   └── style.css
+└── README.md
+
+⚙️ Integration Details
+
+Use Ganache (or any Ethereum testnet) to deploy the smart contract.
+
+Use web3.py to:
+
+Connect Flask backend to deployed contract.
+
+Call contract methods (vote, getCandidates, etc.)
+
+Flask should auto-refresh pages after phase changes.
+
+Start app with:
+
+python app.py
+
+
+Run on port 5000.
+
+🧠 Additional Requirements
+
+Show clear alerts (Bootstrap or plain JS) for all invalid inputs.
+
+Code must be clean, modular, and fully commented.
+
+All pages should have a consistent header showing current phase status.
+
+Ensure full compatibility to run directly on Replit without manual setup.
+
+✅ Goal:
+A fully working blockchain-based voting web app with admin-controlled phases, Aadhaar validation, secure vote storage, and dynamic result display.

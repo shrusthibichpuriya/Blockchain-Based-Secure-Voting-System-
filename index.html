@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Blockchain Voting System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body text-center p-5">
+                <h1 class="display-4 mb-4">🗳️ Welcome to Blockchain Voting System</h1>
+                <p class="lead mb-4">A secure, transparent, and decentralized voting platform</p>
+                
+                <div class="row mt-5">
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100 border-primary">
+                            <div class="card-body">
+                                <h5 class="card-title">📝 Register</h5>
+                                <p class="card-text">Register as a voter using your Aadhaar number</p>
+                                <a href="/register" class="btn btn-primary">Register Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100 border-success">
+                            <div class="card-body">
+                                <h5 class="card-title">🔐 Vote</h5>
+                                <p class="card-text">Login and cast your vote securely</p>
+                                <a href="/login" class="btn btn-success">Login to Vote</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card h-100 border-info">
+                            <div class="card-body">
+                                <h5 class="card-title">📊 Results</h5>
+                                <p class="card-text">View election results and winner</p>
+                                <a href="/result" class="btn btn-info">View Results</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info mt-5">
+                    <h5>System Status</h5>
+                    <p class="mb-0">Check the phase status bar above to see which phases are currently active.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

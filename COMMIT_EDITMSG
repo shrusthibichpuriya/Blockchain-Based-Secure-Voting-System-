@@ -1,0 +1,8 @@
+Add validation for Aadhaar number input to ensure correct format
+
+Implement Aadhaar number validation in the user registration and login components to restrict input to 12 digits and prevent non-numeric characters.
+
+Replit-Commit-Author: Agent
+Replit-Commit-Session-Id: a7cac944-01d7-4fc5-abf9-2a0b2c0c3cf0
+Replit-Commit-Checkpoint-Type: full_checkpoint
+Replit-Commit-Screenshot-Url: https://storage.googleapis.com/screenshot-production-us-central1/b681772b-79a3-4822-9e56-08f0e3358095/a7cac944-01d7-4fc5-abf9-2a0b2c0c3cf0/vzHWs7C

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard - Blockchain Voting System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">🔧 Admin Control Panel</h2>
+                <a href="/admin-logout" class="btn btn-light btn-sm">Logout</a>
+            </div>
+            <div class="card-body">
+                <p class="lead">Control the voting system phases. Only one phase can be active at a time.</p>
+                
+                <div class="row mt-4">
+                    <div class="col-md-4 mb-4">
+                        <div class="card {% if phases.registration %}border-success{% else %}border-secondary{% endif %}">
+                            <div class="card-header {% if phases.registration %}bg-success text-white{% else %}bg-secondary text-white{% endif %}">
+                                <h5 class="mb-0">Registration Phase</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <p class="card-text mb-3">
+                                    Status: <strong>{% if phases.registration %}ACTIVE{% else %}OFF{% endif %}</strong>
+                                </p>
+                                <form method="POST">
+                                    <input type="hidden" name="action" value="toggle_registration">
+                                    <button type="submit" class="btn btn-success btn-lg" {% if phases.registration %}disabled{% endif %}>
+                                        Activate
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <div class="card {% if phases.voting %}border-success{% else %}border-secondary{% endif %}">
+                            <div class="card-header {% if phases.voting %}bg-success text-white{% else %}bg-secondary text-white{% endif %}">
+                                <h5 class="mb-0">Voting Phase</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <p class="card-text mb-3">
+                                    Status: <strong>{% if phases.voting %}ACTIVE{% else %}OFF{% endif %}</strong>
+                                </p>
+                                <form method="POST">
+                                    <input type="hidden" name="action" value="toggle_voting">
+                                    <button type="submit" class="btn btn-success btn-lg" {% if phases.voting %}disabled{% endif %}>
+                                        Activate
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 mb-4">
+                        <div class="card {% if phases.result %}border-success{% else %}border-secondary{% endif %}">
+                            <div class="card-header {% if phases.result %}bg-success text-white{% else %}bg-secondary text-white{% endif %}">
+                                <h5 class="mb-0">Result Phase</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <p class="card-text mb-3">
+                                    Status: <strong>{% if phases.result %}ACTIVE{% else %}OFF{% endif %}</strong>
+                                </p>
+                                <form method="POST">
+                                    <input type="hidden" name="action" value="toggle_result">
+                                    <button type="submit" class="btn btn-success btn-lg" {% if phases.result %}disabled{% endif %}>
+                                        Activate
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning mt-4">
+                    <h5>⚠️ Admin Instructions</h5>
+                    <ul class="mb-0">
+                        <li>Click <strong>Activate</strong> on Registration Phase to allow voters to register</li>
+                        <li>Click <strong>Activate</strong> on Voting Phase to allow registered voters to cast their votes</li>
+                        <li>Click <strong>Activate</strong> on Result Phase to display election results</li>
+                        <li><strong>Important:</strong> Only ONE phase can be active at a time. Activating a phase will automatically deactivate others</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
